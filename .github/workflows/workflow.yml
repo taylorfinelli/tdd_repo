@@ -9,8 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: python:3.9-slim
+    container: python:3.9-slim
 
     steps:
       - name: Checkout
@@ -28,4 +27,3 @@ jobs:
 
       - name: Run unit tests with nose.
         run: nosetests -v --with-spec --spec-color --with-coverage --cover-package=src
-        
