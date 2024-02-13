@@ -25,7 +25,7 @@ def create_counter(name):
 @app.route('/counters/<name>', methods=['PUT'])
 def update_counter(name):
     """Update a counter"""
-    app.logger.info(f"Request to update")
+    app.logger.info("Request to update")
     global COUNTERS
     if name not in COUNTERS:
         return {"Message": f"Counter {name} does not exist"}, status.HTTP_404_NOT_FOUND
@@ -36,7 +36,7 @@ def update_counter(name):
 @app.route('/counters/<name>', methods=["GET"])
 def get_counter(name):
     """Get a counter"""
-    app.logger.info(f"Request to get counter")
+    app.logger.info("Request to get counter")
     global COUNTERS
     if name not in COUNTERS:
         return {"Message": f"Counter name {name} does not exist"}, status.HTTP_404_NOT_FOUND
