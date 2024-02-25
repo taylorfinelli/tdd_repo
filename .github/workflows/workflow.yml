@@ -45,7 +45,7 @@ jobs:
       - name: Generate documentation with Sphinx
         run: |
           pip install sphinx
-          sphinx-quickstart --quiet --sep --ext-autodoc --ext-viewcode --ext-intersphinx docs
+          sphinx-quickstart --sep --ext-autodoc --ext-viewcode --ext-intersphinx docs
           sphinx-build -b html docs/source docs/build
 
       # Step 3: Check for outdated dependencies
