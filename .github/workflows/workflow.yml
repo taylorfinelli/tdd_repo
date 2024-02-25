@@ -60,4 +60,4 @@ jobs:
       - name: Check for outdated dependencies
         run: |
           pip install pip-check
-          pip-check --format=plain
+          pip-check
