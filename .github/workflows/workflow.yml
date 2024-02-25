@@ -15,6 +15,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Step 1: Cache dependencies
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -27,3 +36,20 @@ jobs:
 
       - name: Run unit tests with nose.
         run: nosetests -v --with-spec --spec-color --with-coverage --cover-package=src
+
+      # Step 2: Parallelize security scanning and documentation generation
+      - name: Security scanning with Bandit
+        run: |
+          pip install bandit
+          bandit -r src -f json -o bandit-report.json
+      - name: Generate documentation with Sphinx
+        run: |
+          pip install sphinx
+          sphinx-quickstart --quiet --sep --ext-autodoc --ext-viewcode --ext-intersphinx docs
+          sphinx-build -b html docs/source docs/build
+
+      # Step 3: Check for outdated dependencies
+      - name: Check for outdated dependencies
+        run: |
+          pip install pip-check
+          pip-check --format=plain
