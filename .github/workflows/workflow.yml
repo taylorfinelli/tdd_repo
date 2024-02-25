@@ -52,8 +52,9 @@ jobs:
       - name: Generate documentation with Sphinx
         run: |
           pip install sphinx
-          sphinx-quickstart --sep --ext-autodoc --ext-viewcode --ext-intersphinx docs
-          sphinx-build -b html docs/source docs/build
+          mkdir -p docs
+          cd docs
+          sphinx-quickstart --sep --ext-autodoc --ext-viewcode --ext-intersphinx . --quiet --project "ChatGPT CI Task" --author "Taylor Finelli" --version "1.0" --release "1.0"
 
       # Step 4: Check for outdated dependencies
       - name: Check for outdated dependencies
